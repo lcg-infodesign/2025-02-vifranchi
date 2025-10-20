@@ -96,7 +96,7 @@ let sharpness = map(myValue, minValue, maxValue, 0, 1);
   textFont ('Helvetica')
   textStyle (NORMAL)
   let legendY = 30;
-  let legendX = windowWidth - 515
+  let legendX = windowWidth - 290
   text("Legenda:", legendX, legendY);
   text("Dimensione: valore di 'column0'", legendX, legendY + 20);
   text("Colore: valore di 'column2'", legendX, legendY + 40);
@@ -157,5 +157,5 @@ function drawBlurredCircle(x, y, diameter, col, sharpness) {
 }
 
 function draw() {
-  // put drawing code here
+  
   }
