@@ -17,19 +17,19 @@ function setup() {
   let titleSpace = 80;
 
   //calcolo il numero di colonne
-   let rows = floor((windowHeight - outerPadding * 2) / (itemSize + padding));
+  let rows = floor((windowHeight - outerPadding * 2) / (itemSize + padding));
   let cols = ceil(table.getRowCount() / rows);
 
   let totalWidth = ceil(outerPadding * 2 + cols * itemSize + (cols - 1) * padding);
 
   let scaleFactor = 2;
   let canvasWidth = totalWidth;
-  let canvasHeight = windowHeight + titleSpace;;
+  let canvasHeight = windowHeight + titleSpace;
 
   console.log("cols:", cols, "rows:", rows);
 
   scale(scaleFactor);
-  createCanvas(canvasWidth * scaleFactor, canvasHeight * scaleFactor);
+  createCanvas(windowWidth, windowHeight * 2);
   background("#252525ff");
   //"#e2e2e2ff"
 
@@ -69,16 +69,18 @@ let itemSize = itemSizeBase * scaleFactor;
     let value2Mapped = map (value2, minValue2, maxValue2, 0, 1);
 
     let c1 = color('#d7d1b7ff'); //'#79172cff'
-    let c2 = color('#949946ff'); //'#1867deff'
+    let c2 = color('#bfab3eff'); //'#1867deff'
 
     let mappedColor = lerpColor(c1, c2, value2Mapped);
 
     console.log(value2, minValue2, maxValue2)
     
     fill(mappedColor);
+   
+    let gridWidth = cols * itemSize + (cols - 1) * padding;
+    let xOffset = (windowWidth - gridWidth) / 2;
 
-
-    let xPos = outerPadding + colCount * (itemSize + padding);
+    let xPos = xOffset + colCount * (itemSize + padding);
     let yPos = titleSpace + outerPadding + rowCount * (itemSize + padding); 
 
     
@@ -87,11 +89,27 @@ let itemSize = itemSizeBase * scaleFactor;
 // calcolo dello sharpness in base ai valori min/max
 let sharpness = map(myValue, minValue, maxValue, 0, 1);
 
+//legenda
+  fill('#bfab3eff'); //'#636363ff'
+  textAlign(LEFT, TOP);
+  textSize(16);
+  textFont ('Helvetica')
+  textStyle (NORMAL)
+  let legendY = 30;
+  let legendX = windowWidth - 515
+  text("Legenda:", legendX, legendY);
+  text("Dimensione: valore di 'column0'", legendX, legendY + 20);
+  text("Colore: valore di 'column2'", legendX, legendY + 40);
+
 //Titolo centrato
-  fill('#949946ff'); //'#636363ff'
+  fill('#bfab3eff'); //'#636363ff'
   textAlign(RIGHT, TOP);
-  textSize(40);
-  text("ASSIGNMENT 2 | Glyphs System", windowWidth / 2.2, 30);
+  textSize(35);
+  textFont ('Helvetica')
+  textStyle (BOLD)
+  text("ASSIGNMENT 2 - Glyphs System", windowWidth / 2.3, 30);
+
+
 
 // disegna il cerchio con trasparenza variabile
 drawBlurredCircle(
