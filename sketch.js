@@ -11,32 +11,27 @@ function setup() {
   //controllo se ho caricato i dati
   console.log (table);
 
-  
-
-
   let outerPadding = 20
   let padding = 10
   let itemSize = 30
+  let titleSpace = 80;
 
   //calcolo il numero di colonne
-  let cols = floor ((windowWidth - outerPadding * 2) / (itemSize + padding));
-  
-  let rows = table.getRowCount() / cols;
+   let rows = floor((windowHeight - outerPadding * 2) / (itemSize + padding));
+  let cols = ceil(table.getRowCount() / rows);
 
-  let totalHeight = ceil (outerPadding * 2 + rows * itemSize + (rows -1) * padding);
-  
+  let totalWidth = ceil(outerPadding * 2 + cols * itemSize + (cols - 1) * padding);
+
   let scaleFactor = 2;
-  let canvasWidth = windowWidth;
-  let canvasHeight = totalHeight;
+  let canvasWidth = totalWidth;
+  let canvasHeight = windowHeight + titleSpace;;
 
   console.log("cols:", cols, "rows:", rows);
 
-  // creo canvas
   scale(scaleFactor);
   createCanvas(canvasWidth * scaleFactor, canvasHeight * scaleFactor);
-  background ("#e2e2e2ff");
-
-  
+  background("#252525ff");
+  //"#e2e2e2ff"
 
   let colCount = 0;
 
@@ -73,8 +68,8 @@ let itemSize = itemSizeBase * scaleFactor;
     
     let value2Mapped = map (value2, minValue2, maxValue2, 0, 1);
 
-    let c1 = color('#79172cff');
-    let c2 = color('#1867deff');
+    let c1 = color('#d7d1b7ff'); //'#79172cff'
+    let c2 = color('#949946ff'); //'#1867deff'
 
     let mappedColor = lerpColor(c1, c2, value2Mapped);
 
@@ -84,13 +79,19 @@ let itemSize = itemSizeBase * scaleFactor;
 
 
     let xPos = outerPadding + colCount * (itemSize + padding);
-    let yPos= outerPadding + rowCount * (itemSize + padding);
+    let yPos = titleSpace + outerPadding + rowCount * (itemSize + padding); 
 
     
     ellipseMode(CENTER);
 
 // calcolo dello sharpness in base ai valori min/max
 let sharpness = map(myValue, minValue, maxValue, 0, 1);
+
+//Titolo centrato
+  fill('#949946ff'); //'#636363ff'
+  textAlign(RIGHT, TOP);
+  textSize(40);
+  text("ASSIGNMENT 2 | Glyphs System", windowWidth / 2.2, 30);
 
 // disegna il cerchio con trasparenza variabile
 drawBlurredCircle(
